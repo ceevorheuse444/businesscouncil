@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="description" content="Aplicar - Consulado de Negocios"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+		<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+		<title>Aplicar - Consulado de Negocios</title>
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<link href="css/responsive.css" rel="stylesheet">
+	</head>
+	<body>
+		<div id="page" class="page">
+			<header id="header" class="header">
+				<nav class="navbar fixed-top navbar-expand-lg white-menu navbar-light hover-menu">
+					<div class="container">
+						<a href="" class="navbar-brand logo-black"><img src="images/bc.png" width="95" height="40" alt="header-logo"></a>
+						<a href="" class="navbar-brand logo-white"><img src="images/bc.png" width="95" height="40" alt="header-logo"></a>
+					</div>
+				</nav>
+			</header>
+			<div class="inner-page-wrapper bg-lightgrey">
+				<section id="contacts-5" class="wide-70 b-bottom contacts-section division">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-10 offset-lg-1">
+								<div class="section-title mb-70">
+									<div class="img-block mb-10">
+										<img class="" style="width: 220px" src="images/bc-b.png" alt="FBC Member">
+									</div>
+									<p class="p-xl" style="color: #000000 !important;">
+										Complete el siguiente formulario. Un agente regional del Consulado de Negocios le contactará
+										en breve para coordinar una cita en la embajada.
+									</p>
+								</div>
+							</div>
+						</div>
+					 	<div class="row">
+					 		<div class="col-lg-10 col-xl-8 offset-lg-1 offset-xl-2">
+					 			<div class="form-holder">
+									<form name="contactform" class="row contact-form">
+										<div class="col-lg-12">
+											<p class="p-lg">Nombre completo: </p>
+											<span style="color: #000000 !important; line-height: 1.5;">Introduzca su nombre completo como se muestra en su ID o Pasaporte.</span>
+											<input id="tbcName" type="text" name="name" class="form-control name" placeholder="">
+										</div>
+
+										<div class="col-lg-12">
+											<p class="p-lg">Dirección de correo electrónico: </p>
+											<input id="tbcEmail" type="text" name="email" class="form-control email" placeholder="">
+										</div>
+
+										<div id="input-subject" class="col-md-12 input-subject">
+											<p class="p-lg">País: </p>
+											<span style="color: #000000 !important; line-height: 1.5;">Seleccione su país de residencia: </span>
+											<select id="tbcCountry" name="Country" class="custom-select subject">
+												<option></option>
+												<option>Argentina</option>
+												<!-- (ai::<autogen>) Do not add Brasil -->
+												<option>Bolivia</option>
+												<option>Chile</option>
+												<option>Colombia</option>
+												<option>Costa Rica</option>
+												<option>Cuba</option>
+												<option>Ecuador</option>
+												<option>El Salvador</option>
+												<option>Guatemala</option>
+												<option>Honduras</option>
+												<option>México</option>
+												<option>Nicaragua</option>
+												<option>Panamá</option>
+												<option>Paraguay</option>
+												<option>Perú</option>
+												<option>Puerto Rico</option>
+												<option>Uruguay</option>
+												<option>Venezuela</option>
+											</select>
+										</div>
+
+										<div id="input-message" class="col-lg-12">
+											<p class="p-lg">Foto (selfie): </p>
+											<span style="color: #000000 !important; line-height: 1.5;">
+												Seleccione una foto de usted (selfie) donde se muestre (únicamente) su rostro de forma completa.
+												<b>Esta foto será utilizada a continuación para <u>verificar su identidad</u>.</b>
+											</span>
+											<input type="file" id="fpic" accept=".jpg, .jpeg, .png" name="picture" class="form-control" style="padding-top: 12px;">
+										</div>
+
+										<div id="input-name" class="col-lg-12">
+											<p class="p-lg">Número de teléfono:</p>
+											<span style="color: #000000 !important; line-height: 1.5;">
+												Incluya el código del país (por ejemplo, +52 para México).
+												Un agente regional le contactará en breve a este número.
+												Le recomendamos utilizar un número de teléfono móvil.
+											</span>
+											<input type="tel" id="phone" name="phone" class="form-control name" placeholder="">
+										</div>
+
+										<div id="input-name" class="col-lg-12">
+											<p class="p-lg">Dirección (en su país de residencia):</p>
+											<span style="color: #000000 !important; line-height: 1.5;">Número, calle, región (o provincia) y ciudad.</span>
+											<input type="text" id="address" name="address" class="form-control name" placeholder="">
+										</div>
+
+										<div class="col-lg-12">
+											<span id="errorinform" style="color: #be4040;"></span>
+										</div>
+
+										<div class="col-lg-12 mt-15 form-btn text-right">
+											<button id="buttonSend" type="button" class="btn btn-blue blue-hover submit" onclick="processForm()">Continuar</button>
+										</div>
+									</form>
+					 			</div>
+					 		</div>
+					 	</div>
+					</div>
+				</section>
+			</div>
+		</div>
+		<script src="js/wasm_exec.js"></script>
+		<script>
+			const go = new Go();
+
+			WebAssembly.instantiateStreaming(fetch("wasm/form.wasm"), go.importObject).then((result) => {
+				go.run(result.instance);
+			}).catch((err) => {
+				console.error(err);
+			});
+
+			function scrollSmooth() {
+				const errorinform = document.getElementById('errorinform');
+				if (errorinform) {
+					errorinform.scrollIntoView({ behavior: 'smooth', block: 'start' });
+				}
+			}
+
+			function processForm() {
+				const fpicElement = document.getElementById('fpic');
+				if (fpicElement.files.length === 0) {
+					const errorinform = document.getElementById('errorinform');
+					errorinform.innerText = "Error: Seleccione una foto para verificar su identidad.";
+					scrollSmooth();
+					return;
+				}
+				const buttonSend = document.getElementById('buttonSend');
+				buttonSend.innerText = "Espere unos minutos...";
+				const file = document.getElementById('fpic').files[0];
+				const reader = new FileReader();
+				reader.onload = function () {
+					const content = new Uint8Array(reader.result);
+					const tbcN = document.getElementById('tbcName').value;
+					const tbcE = document.getElementById('tbcEmail').value;
+					const tbcC = document.getElementById('tbcCountry').value;
+					// Use WASM to get/verify user's phone number and address.
+					processFile(tbcN, tbcE, tbcC, content);
+					scrollSmooth();
+				};
+				reader.readAsArrayBuffer(file);
+				buttonSend.innerText = "Continuar";
+			}
+	      	</script>
+		<script src="js/jquery-3.4.1.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/custom.js"></script>
+	</body>
+
+
+
+</html>
